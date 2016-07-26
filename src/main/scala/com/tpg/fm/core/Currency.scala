@@ -1,9 +1,10 @@
 package com.tpg.fm.core
 
-/**
-  * Created by tpgoldie on 26/07/16.
-  */
-sealed abstract class Currency(name: String, code: String, symbol: String) {
+import com.tpg.fm.asset.{X, Y}
+
+sealed abstract class Currency(name: String, code: String, symbol: String) extends X with Y {
+  override def X: X = this
+  override def Y: Y = this
 }
 
 case object USD extends Currency("Dollar", "USD", "$")
