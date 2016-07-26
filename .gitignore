@@ -4,7 +4,11 @@
 # sbt specific
 .cache
 .history
+.classpath
 .idea
+.project
+*.iml
+.settings/
 .lib/
 dist/*
 project/
