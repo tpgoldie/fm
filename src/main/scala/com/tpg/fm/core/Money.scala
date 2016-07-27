@@ -10,5 +10,6 @@ case class Money(currency: Currency, amount: BigDecimal = One, t: DateTime = new
 }
 
 object Money {
+  val Zero = BigDecimal("0.000000")
   val One = BigDecimal("1.000000")
 }

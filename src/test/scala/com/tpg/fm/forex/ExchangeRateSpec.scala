@@ -1,6 +1,5 @@
 package com.tpg.fm.forex
 
-import com.tpg.fm.core.Money.One
 import com.tpg.fm.core._
 import org.joda.time.DateTime
 import org.scalatest.{Matchers, FlatSpec}
@@ -46,16 +45,16 @@ class ExchangeRateSpec extends FlatSpec with Matchers {
     actual.price should be(BigDecimal("0.6937") +- 1e-4)
   }
 
-  it should "give units" in {
+  it should "multiply with units of" in {
     val rate = ExchangeRate(USD, GBP, BigDecimal("0.6238"), now)
 
-    val actual = rate * UnitsOf(100, GBP)
+    val actual = rate * UnitsOfY(100, GBP)
 
     actual should have(
       'asset(USD)
     )
 
-    actual.quantity should be(BigDecimal((100.0 / 0.6238).toString) +- 1e-4)
+    actual.quantity should be(BigDecimal((100.0 * 0.6238).toString) +- 1e-4)
   }
 
   "two exchange rates" should "not be the same if they have the different Xs but the same Y, price and t" in {

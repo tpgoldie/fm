@@ -1,11 +1,11 @@
 package com.tpg.fm.forex
 
-import com.tpg.fm.core.{Currency, UnitsOf}
+import com.tpg.fm.core.Currency
 import com.tpg.fm.core.Money.One
-import com.tpg.fm.pricing.Price
+import com.tpg.fm.pricing.{PositivePrice, Price}
 import org.joda.time.DateTime
 
-case class ExchangeRate(X: Currency, Y: Currency, override val price: BigDecimal, t: DateTime = new DateTime()) extends Price(X, Y, price, t) {
+case class ExchangeRate(X: Currency, Y: Currency, override val price: BigDecimal, t: DateTime = new DateTime()) extends PositivePrice(X, Y, price, t) {
   override def inverse: Price = ExchangeRate(Y, X, One / price, t)
 
   override def *(that: Price): Option[Price] = {
@@ -20,7 +20,8 @@ case class ExchangeRate(X: Currency, Y: Currency, override val price: BigDecimal
     }
     else { None }
   }
+}
 
-  override def *(that: UnitsOf): UnitsOf = UnitsOf((One / price) * that.quantity, X)
-
+object ExchangeRate {
+  type CurrencyPair = (Currency, Currency)
 }
